@@ -2,11 +2,12 @@
 
 const express = require("express");
 const bodyParser = require("body-parser");
+const date = require(__dirname + "/date.js");
 
 const app = express();
 
-let items = ["Buy Foods", "Cook Foods", "Eat Foods"];
-let workItems = [];
+const items = ["Buy Foods", "Cook Foods", "Eat Foods"];
+const workItems = [];
 
 //ejs
 app.set('view engine', 'ejs');
@@ -17,16 +18,7 @@ app.use(express.static("public")); //to use public files like css
 
 app.get("/", function(req, res){
 
-    let today = new Date();
-    let options = {
-        weekday: "long",
-        day: "numeric",
-        month: "long"
-
-    };
-
-    let currentDay = today.toLocaleDateString("en-US", options);
-
+    let currentDay = date.getDate();
     res.render("list", {listTitle: currentDay, newListItems: items});
 
 });
